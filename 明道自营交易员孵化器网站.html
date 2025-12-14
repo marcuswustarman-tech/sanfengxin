@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明道自营交易员孵化器 - 金融市场的黄埔军校</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background-color: #0a0a0f;
+            color: #d4d4d4;
+            line-height: 1.6;
+            background-image: linear-gradient(to bottom, #0a0a0f 0%, #12121a 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: rgba(10, 10, 15, 0.9);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #c9a74d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: #d4d4d4;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #d4d4d4;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: #c9a74d;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #c9a74d;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 15, 0.7), rgba(10, 10, 15, 0.9)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%2312121a"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%232a2a3a" stroke-width="1"/></svg>');
+            background-size: 200px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #c9a74d;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #a0a0a0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #c9a74d;
+            color: #0a0a0f;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background: #d8b85e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(201, 167, 77, 0.3);
+        }
+        
+        /* 文档内容区域样式 */
+        .document-section {
+            padding: 80px 0;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        
+        .document-section:last-child {
+            border-bottom: none;
+        }
+        
+        .document-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .document-header h2 {
+            font-size: 36px;
+            color: #c9a74d;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .document-header h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #c9a74d;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .document-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(18, 18, 26, 0.7);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #2a2a3a;
+        }
+        
+        .document-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .document-content h3 {
+            color: #c9a74d;
+            margin: 30px 0 15px;
+            font-size: 22px;
+        }
+        
+        .document-content ul, .document-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .document-content li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: rgba(201, 167, 77, 0.1);
+            border-left: 3px solid #c9a74d;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .contact-method {
+            background: rgba(18, 18, 26, 0.9);
+            border-radius: 8px;
+            padding: 25px;
+            width: 300px;
+            border: 1px solid #2a2a3a;
+        }
+        
+        .contact-method h3 {
+            color: #c9a74d;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        .contact-method p {
+            margin-bottom: 10px;
+        }
+        
+        /* 底部样式 */
+        footer {
+            background: #0a0a0f;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #2a2a3a;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            margin-bottom: 15px;
+            color: #a0a0a0;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .document-content {
+                padding: 20px;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-method {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">明道<span>自营交易员孵化器</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#screening">筛选</a></li>
+                        <li><a href="#first">第一面</a></li>
+                        <li><a href="#second">第二面</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>交易员的黄埔军校</h1>
+            <p>万物皆交易，人生需负熵。未来已来，只是分布不均。</p>
+            <a href="#contact" class="cta-button">开启你的交易员生涯</a>
+        </div>
+    </section>
+
+    <!-- 筛选文档 -->
+    <section id="screening" class="document-section">
+        <div class="container">
+            <div class="document-header">
+                <h2>筛选</h2>
+            </div>
+            <div class="document-content">
+                <p>一部分人有这样的特性:他们急躁，不知道自己想要什么，看问题只浮于表面，无法看透事物的本质，或者压根不适合做交易员这个工作，适合做那些"稳定"的"当一天和尚敲一天钟"的工作。</p>
+                <p>关于收入，社保，底薪，薪资结构，等问题，我在这里再次阐述:首先应该明白一个概念:任何盈利组织企业一定不会做亏本的事情(至少他们认为的)就算是高薪招一个什么都不会的应届生也是因为政府的补贴以及此应届生已经足够优秀证明了自己的能力，公司能看到他未来可能产生的价值。</p>
+                <p>所以你通过工作得到的收入一定是小于你创造的价值的，而我们这是一个极简行业，创造的所有价值都来源于在二级市场通过买卖差价来实现。</p>
+                <p>在你证明自己有盈利能力(通过考核)前，我们绝对不会投入任何金钱(当然，时间精力也只会投向看起来更有希望的候选人)如果想拿着过去的成就扔我脸上往这里一坐，伸出手来:给钱。抱歉，这你不适合你，可以去试试传统的大公司，他们也许认可这些东西。</p>
+                <p>关于通过考核后的收入，薪资结构，社保等，问题。其实你明白，在你证明自己有生产力之前是没必要问这些问题的，你只需明白一点，你的实际收入一定不会超过你在战场(二级市场)上缴获的物资。问这个问题只不过是担心我们跑路，请问:你已经是一名能稳定带回战果的士兵了，我们会跑路吗，央行会扔掉他们的印钞机吗?</p>
+                <p>说回这些问题，这些问题我能回答吗，当然能，答案也很简单，但我依然不会回答这个问题。</p>
+                <p>而这也是筛选的一环，如果你多疑看问题只看表面，上面这段话看不懂，那么你其实不适合做这一行，360行都可出状元，天生你材必有他用。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第一面文档 -->
+    <section id="first" class="document-section">
+        <div class="container">
+            <div class="document-header">
+                <h2>第一面</h2>
+            </div>
+            <div class="document-content">
+                <p>1.首先我们的行业性质不属于业务、市场范畴，如果你本人性格特别外向、过于跳跃、不擅长遵守纪律、没有严格执行力可能并不适合本职位。</p>
+                <p>2.区域性小团队化办公或远程办公作业是我们的行业特性。需要严格筛选及一定周期的培训、考核，并最终自主选择薪金模式。如果你对该行业不太了解，建议你多查询相关资料后再进一步沟通(对行业不太了解可以去百度搜索"伯克希尔有多少员工"之类信息熟悉)。</p>
+                <p>3.还是由于行业特性的原因，毫不夸张地说我们是在做常年千、万里挑一的工作。由于区域范围广泛以及个体差异，我们将采用:弹性工作机制、差异性业绩薪金考核方式/标准等要求，你可以自主选择是否接受。</p>
+                <p>4.无论在沟通、面试、培训、工作中，都绝不允许任何一方出现"索要资金"、"变相入金"、"要求拉业务""拉资金、融资/变相融资"等任何违法违规的行为......所有职位一切仅限于技术、数据、管理等范畴，一旦出现该情况，请第一时间告知。</p>
+                <p>5.回答典型问题:有人问一些为什么我们要求"交易员"年龄(认为年轻人"不牢靠"、"没经验")，在多数国人的眼中[甚至不乏众多金融从业者]很多都认为，有过很多年交易经验或曾在银行、券商、公私募…等金融机构工作过的才是所谓的"专家"，才会交易、能赚钱，才有资格做交易员(操盘手)。请你千万不要这样理解，更不要用"老中医才是高手""老会计才专业""老管理人才有水平"这种行业思维死搬硬套…因为这是大错特错、完全误解的。(事实上这些在其他行业似乎正确的规律，起码在本行业完全不适用!国内90%的"年龄大、经验广的"老油条"根本上是交易的失败者(很多坏习惯)或上不去下不来的"江湖游魂(掩耳盗铃/到处募资…)"，这一点，他们自己心里最明白，原谅我找不到更贴切的方式形容)。真正答案是:这个行业(职业)是真正属于18-30岁的"适合"的年轻人。</p>
+                <p>6、为了不浪费彼此的时间，我们会用最短的时间(5~20个工作日)，筛选/训练"适合的年轻人"达到他们(所谓专家)10-20年的"盈利能力"，并科学规避他们身上不应该有的错误定式思维、复杂糟粕及恶习)，这一点也不奇怪，"一张白纸最好画"难道不是吗?目前职业交易员的职业化训练在国内一直(近30年)是相对荒芜的。那些所谓的年龄经验丰富者，多数是自学一招半式或夹杂自创的"土办法"、"障眼法"。而我们这里是交易员的"黄埔军校"总之，如果适合做 Trader(这个职业)入行越年轻越好!我们的原则是，在最短的周期(5-20个交易日培训后)判别该年轻人是否适合该行业，认为不适合者会忠告其终身不要再踏足这个行业，毕竟"赌徒(比喻)"只适合极少数人。</p>
+                <p>相信多数人还有类似更多问题，要通过时间慢慢了解、理解(奉劝所有的年轻人不要着急，心态放平(给自己一次机会试试就好，发现不适合自己的不要执着，即刻离开，天生你才必有他用。另外，特别在此重申仔细看上面第4条，无论你到任何公司，不要入金、不要融资、不要参与拉业务...以规避</p>
+                <p>最后，统一说明一下很多人关心的工作内容问题，一切的工作只有一件事Trading(交易，并取得利润)。简单说就两个动作，把钱推进去，之后把钱拿出来。既没有传统行业的进存销，也没有原材料、加工、推广…环节，更没有传统所谓的天花板和边际…以及工商税务等行政环节。是一个极简行业，极简意味着极纯粹意味着容不得半句谎言(包括对自己)。唯一要做的就是让自己成为优秀的 Trader</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第二面文档 -->
+    <section id="second" class="document-section">
+        <div class="container">
+            <div class="document-header">
+                <h2>第二面</h2>
+            </div>
+            <div class="document-content">
+                <p>1、好的开始:你因为好奇心，和不怕被骗的勇气，从其他渠道了解到我们后，你加了微信于是你穿过滤网到了这里，在今后的职业生涯中这样的滤网还有很多。保持你的好奇心+勇气，这二者催生出运气，这是成功的钥匙之一。</p>
+                <p>2、重新详述一下这个职业(交易员):</p>
+                <p>这个职业在本质上是简单明了的的，是一个黑白分明、胜负分明、成败分明的领域，它不容模糊。简而言之，想象一下你被派往战场，通过击败敌人并从他们身上夺取徽章(或臂章)来赚取奖金(金钱)。当然，如果你在战场上缺乏良好的技能和纪律，你也可能会被击败。这听起来很像雇佣兵的工作方式:根据你的努力获得相应的报酬。</p>
+                <p>现在你应该明确些了，实际上，你的所有收入都源自于你个人所创造的生产力，即亲自播种、施肥和收获的成果，而不是那些模糊不清、需要团队合作且难以明确各自贡献的工作。因此，你不必担心与他人争论功劳大小或分配收益的问题。</p>
+                <p>然而，你必须将每天(或每周、每月)将通过生产力创造剩余价值中的一部分，分配给你的上级比比如团队长或基金经理。这种做法与资本的运作方式相符:他们通过辛勤训练和指导你，目的是为了能够"分享"(或者按照某些观点，可以说是"榨取")你的剩余价值。当然，上述内容在所有行业中均是适用的，只不过这个过程在其他行业中被有意无意的巧妙隐藏了，而这个行业的核心是诚实，所以这个过程在这里显得过于露骨。</p>
+                <p>3、重新详述一下这个职业的定位:</p>
+                <p>团队长的职责是将你从一个对系统不熟悉的新手(小白)培养成一个高效的士兵(印钞机)，随后持续地从你的工作成果中获取剩余价值。你的工作成果则是从你在市场(战场)中凭借个人勇气和能力所获得的收益，而这个战场上有如恒河中所有沙数一样多的财富，有本事可以随时取随遍取。你可以把自己理解为:杀手、雇佣兵、冲浪者，强盗、赌徒……等等需要独立思考、勇敢面对挑战的孤勇者。</p>
+                <p>4、职业阶梯:</p>
+                <p>交易员(士兵):在20个工作日期间认真接受密集训练，争取迅速成长为一名战士。在此期间如果你穿过了重重筛网，通过考核证明了自己，你将正式加入团队，开始你的交易员生涯，并享受一段被榨取利益(与团队长收益分成)的时光。当然，那个时候你肯定已经不关心钱了，反正没有任何行业的"员"的职位收入能超过交易员。</p>
+                <p>团队长(军官):在前线拼杀过一段时间后，若你感兴趣，你将可以尝试组建团队，你将训练新兵，给他们讲述你在战场上的故事，此时你便成了"军官"。上战场不是你的任务了，你将为他们分配资金和策略，在指挥所里喝茶、监视、榨取团队的剩余价值，此时你就已经"财务自由"了。</p>
+                <p>基金经理(统帅):当你带出来的新兵成长为团队长，就像树木长出枝丫，你拥有了多个团队，此时你便可以成立自己的私募基金，并规模化管理多种衍生品。团队长已经"财务自由"何况拥有多个团队的基金经理，此时你已经是半退休的状态，并且拥有永续不断的被动收入。</p>
+                <p>5、总结:</p>
+                <p>7~20个工作日就能看清楚你是否有缘和我们一起战斗，或者说有能力胜任这个职位。最终只会有以下结局:</p>
+                <p>结局1:如果你不适合这行(无法从大海里舀舀水)，你会在20个工作日内主动离开(或让你被动离开)</p>
+                <p>结局2:你恰好适合，通过了考验。上述职业阶梯将为你开始，命运的齿轮也开始转动。</p>
+                <p>根据以往的经验，统计下来结局2的比例小于18%，但对于你个人来说，概率是1%或90%，你是否愿意"赌"一把</p>
+                <p>有人问:"培训期间给钱吗?"，答案是不会。但是显然你明白的，本行业不适合这么问。因为，不久的未来你能体会，摆在面前的不是一份普通应聘工作，而是一次人生道路的抉择!对于职业交易员来说，无论哪个结果，"几天的培训补助"，都不应该是你看中的。另外，不可能给每个不确定适合者发钱，毕竟这个行业职位不一定适合每个人，在此再次强调:选择权在双方。如果你看到了这里，祝贺你，初步的筛选已经完成。加我的微信:mojie_yc，并发送代码:mojie101，你的团队长会给你报名表。</p>
+                <p>最后多说一句:你应该清楚，你面临的最大风险就是在训练期间被淘汰，而你的成本是时间(当然这取决于你如何看待这20天的培训，是否认真对待，是否问心无愧)。</p>
+                <p>万物皆交易，人生需负熵。未来已来，只是分布不均。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section id="contact" class="document-section">
+        <div class="container">
+            <div class="document-header">
+                <h2>联系我们</h2>
+            </div>
+            <div class="document-content">
+                <p>如果你已经阅读并理解了以上所有内容，并且认为自己具备成为交易员的潜质，欢迎联系我们。</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <h3>BOSS直聘流程</h3>
+                        <p>在BOSS聊天中发送代码：<strong>mojie101</strong></p>
+                        <p>然后预约面试</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <h3>小红书/微信流程</h3>
+                        <p>添加微信: <strong>mojie_yc</strong></p>
+                        <p>发送代码: <strong>mojie101</strong>，预约面试</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p>你的团队长会给你报名表，并安排后续的筛选流程。</p>
+                    <p>记住:万物皆交易，人生需负熵。未来已来，只是分布不均。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2023 明道自营交易员孵化器 - 金融市场的黄埔军校</p>
+                <p>万物皆交易，人生需负熵</p>
+                <div class="contact-info">
+                    <p>风险提示: 交易有风险，投资需谨慎。本网站内容仅供参考，不构成任何投资建议。</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 平滑滚动脚本 -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
